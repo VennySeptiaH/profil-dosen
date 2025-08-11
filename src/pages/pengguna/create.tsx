@@ -3,7 +3,6 @@ import { Create } from "@refinedev/mui";
 import { useForm } from "@refinedev/react-hook-form";
 import { Controller } from "react-hook-form";
 import { supabaseClient } from "../../utility"; // sesuaikan path
-import authProvider from "../../authProvider"; // sesuaikan path
 
 export const AccessCreate = () => {
   const {
