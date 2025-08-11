@@ -10,6 +10,7 @@ import { useGetIdentity } from "@refinedev/core";
 import { HamburgerMenu, RefineThemedLayoutV2HeaderProps } from "@refinedev/mui";
 import React, { useContext } from "react";
 import { ColorModeContext } from "../../contexts/color-mode";
+import { useRole } from "../../pages/RoleContext"; // Pastikan untuk import useRole jika diperlukan
 
 type IUser = {
   id: number;
@@ -23,10 +24,12 @@ export const Header: React.FC<RefineThemedLayoutV2HeaderProps> = ({
   const { mode, setMode } = useContext(ColorModeContext);
 
   const { data: user } = useGetIdentity<IUser>();
+  const { role } = useRole(); // Mengambil role pengguna
 
   return (
     <AppBar position={sticky ? "sticky" : "relative"}>
       <Toolbar>
+        {/* <img src="/src/LOGO STIS.png" alt="Logo" style={{ height: 40, marginRight: 16 }} /> */}
         <Stack
           direction="row"
           width="100%"
@@ -37,6 +40,7 @@ export const Header: React.FC<RefineThemedLayoutV2HeaderProps> = ({
           <Stack
             direction="row"
             width="100%"
+            gap="16px"
             justifyContent="flex-end"
             alignItems="center"
           >
@@ -56,20 +60,41 @@ export const Header: React.FC<RefineThemedLayoutV2HeaderProps> = ({
                 alignItems="center"
                 justifyContent="center"
               >
+                  <Avatar src={user?.avatar} alt={user?.name} />
                 {user?.name && (
-                  <Typography
-                    sx={{
-                      display: {
-                        xs: "none",
-                        sm: "inline-block",
-                      },
-                    }}
-                    variant="subtitle2"
-                  >
-                    {user?.name}
-                  </Typography>
+                  <Stack direction="column" alignItems="justify" justifyContent="center">
+                    <Typography
+                      sx={{
+                        display: {
+                          xs: "none",
+                          sm: "inline-block",
+                        },
+                        fontWeight: "bold",
+                      }}
+                      variant="subtitle2"
+                    >
+                      {user?.name}
+                    </Typography>
+
+                    {/* Menambahkan role di bawah nama pengguna */}
+                    {role && (
+                      <Typography
+                        sx={{
+                          display: {
+                            xs: "none",
+                            sm: "inline-block",
+                          },
+                          fontSize: "0.875rem",
+                        }}
+                        variant="caption"
+                        color="#fffff"
+                      >
+                        {role} {/* Menampilkan role pengguna */}
+                      </Typography>
+                    )}
+                  </Stack>
                 )}
-                <Avatar src={user?.avatar} alt={user?.name} />
+                
               </Stack>
             )}
           </Stack>
@@ -78,3 +103,4 @@ export const Header: React.FC<RefineThemedLayoutV2HeaderProps> = ({
     </AppBar>
   );
 };
+

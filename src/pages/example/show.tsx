@@ -1,11 +1,15 @@
 import { Stack, Typography } from "@mui/material";
 import { useShow } from "@refinedev/core";
-import { Show, TextFieldComponent as TextField } from "@refinedev/mui";
+import {
+  DateField,
+  Show,
+  TextFieldComponent as TextField,
+} from "@refinedev/mui";
 
-export const CategoryShow = () => {
-  const { query } = useShow({});
+export const ExampleShow = () => {
+  const { query } = useShow();
+
   const { data, isLoading } = query;
-
   const record = data?.data;
 
   return (
@@ -15,10 +19,16 @@ export const CategoryShow = () => {
           {"ID"}
         </Typography>
         <TextField value={record?.id} />
+
         <Typography variant="body1" fontWeight="bold">
-          {"Title"}
+          {"Created At"}
         </Typography>
-        <TextField value={record?.title} />
+        <DateField value={record?.created_at} />
+
+        <Typography variant="body1" fontWeight="bold">
+          {"Name"}
+        </Typography>
+        <TextField value={record?.name} />
       </Stack>
     </Show>
   );

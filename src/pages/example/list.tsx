@@ -1,5 +1,8 @@
+import { Typography } from "@mui/material";
 import { DataGrid, type GridColDef } from "@mui/x-data-grid";
+import { useMany } from "@refinedev/core";
 import {
+  DateField,
   DeleteButton,
   EditButton,
   List,
@@ -8,8 +11,8 @@ import {
 } from "@refinedev/mui";
 import React from "react";
 
-export const CategoryList = () => {
-  const { dataGridProps } = useDataGrid({});
+export const ExampleList = () => {
+  const { dataGridProps } = useDataGrid();
 
   const columns = React.useMemo<GridColDef[]>(
     () => [
@@ -18,17 +21,21 @@ export const CategoryList = () => {
         headerName: "ID",
         type: "number",
         minWidth: 50,
-        display: "flex",
         align: "left",
         headerAlign: "left",
       },
       {
-        field: "title",
-        flex: 1,
-        headerName: "Title",
-        minWidth: 200,
-        display: "flex",
+        field: "created_at",
+        headerName: "Created at",
+        minWidth: 120,
+        renderCell: ({ value }) => <DateField value={value} />,
       },
+      {
+        field: "name",
+        headerName: "Name",
+        minWidth: 200,
+      },
+   
       {
         field: "actions",
         headerName: "Actions",
@@ -36,16 +43,13 @@ export const CategoryList = () => {
         headerAlign: "right",
         minWidth: 120,
         sortable: false,
-        display: "flex",
-        renderCell: function render({ row }) {
-          return (
-            <>
-              <EditButton hideText recordItemId={row.id} />
-              <ShowButton hideText recordItemId={row.id} />
-              <DeleteButton hideText recordItemId={row.id} />
-            </>
-          );
-        },
+        renderCell: ({ row }) => (
+          <>
+            <EditButton hideText recordItemId={row.id} />
+            <ShowButton hideText recordItemId={row.id} />
+            <DeleteButton hideText recordItemId={row.id} />
+          </>
+        ),
       },
     ],
     []

@@ -1,12 +1,14 @@
-import { Box, TextField } from "@mui/material";
+import { Autocomplete, Box, MenuItem, Select, TextField } from "@mui/material";
 import { Create } from "@refinedev/mui";
 import { useForm } from "@refinedev/react-hook-form";
+import { Controller } from "react-hook-form";
 
-export const CategoryCreate = () => {
+export const ExampleCreate = () => {
   const {
     saveButtonProps,
     refineCore: { formLoading },
     register,
+    control,
     formState: { errors },
   } = useForm({});
 
@@ -18,7 +20,7 @@ export const CategoryCreate = () => {
         autoComplete="off"
       >
         <TextField
-          {...register("title", {
+          {...register("name", {
             required: "This field is required",
           })}
           error={!!(errors as any)?.title}
@@ -27,9 +29,10 @@ export const CategoryCreate = () => {
           fullWidth
           InputLabelProps={{ shrink: true }}
           type="text"
-          label={"Title"}
-          name="title"
+          label="Name"
+          name="name"
         />
+   
       </Box>
     </Create>
   );
